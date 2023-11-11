@@ -1,4 +1,4 @@
 export interface IAnonCarbonDataItem {
-  Week: number;
-  tCO2e: number;
+  name: string;
+  carbonAmount: string;
 }

@@ -1,9 +1,9 @@
 'use client';
+import { CarbonDataAreaChart } from './components/CarbonDataAreaChart';
 import { Loader } from './components/Loader';
 import { useFetchCSVData } from './hooks/useFetchCSVData';
 
 export default function Home() {
-  
   const { data, loading } = useFetchCSVData();
 
   return (
@@ -11,12 +11,7 @@ export default function Home() {
       {loading ? (
         <Loader loading={loading} />
       ) : (
-        data.map((row, index) => (
-          <tr key={index}>
-            <td>{row.Week}</td>
-            <td>{row.tCO2e}</td>
-          </tr>
-        ))
+        <CarbonDataAreaChart chartData={data} />
       )}
     </main>
   );

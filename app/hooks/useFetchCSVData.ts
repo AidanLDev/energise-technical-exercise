@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { readString } from 'react-papaparse';
 import { IAnonCarbonDataItem } from '../interfaces/IAnonCarbonData';
+import { IRawAnonCarbonDataItem } from '../interfaces/IRawAnonCarbonData';
 
 const pathToData = '/data/anon_carbon_data.csv';
 
@@ -21,9 +22,14 @@ export const useFetchCSVData = () => {
       fetch(pathToData)
         .then((res) => res.text())
         .then((text) => {
-          readString<IAnonCarbonDataItem>(text, {
+          readString<IRawAnonCarbonDataItem>(text, {
             header: true,
-            complete: (result) => setData(result.data),
+            complete: (results) => {
+              setData(results.data.map((row) => ({
+                name: row.Week,
+                carbonAmount: row.tCO2e,
+              })));
+            },
           });
         })
         .catch((err) => console.error('Error parsing CSV: ', err))
