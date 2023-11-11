@@ -1,5 +1,5 @@
 'use client';
-import { CarbonDataAreaChart } from './components/CarbonDataAreaChart';
+import { CarbonDataAreaChart } from './components/chart/CarbonDataAreaChart';
 import { Loader } from './components/Loader';
 import { useFetchCSVData } from './hooks/useFetchCSVData';
 
