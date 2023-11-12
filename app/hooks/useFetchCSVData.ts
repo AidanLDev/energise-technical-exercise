@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { readString } from 'react-papaparse';
 import { IAnonCarbonDataItem } from '../interfaces/IAnonCarbonData';
 import { IRawAnonCarbonDataItem } from '../interfaces/IRawAnonCarbonData';
+import { getWeeklyCarbonEmissions } from '../lib/Utils';
 
 const pathToData = '/data/anon_carbon_data.csv';
 
@@ -25,10 +26,8 @@ export const useFetchCSVData = () => {
           readString<IRawAnonCarbonDataItem>(text, {
             header: true,
             complete: (results) => {
-              setData(results.data.map((row) => ({
-                name: row.Week,
-                carbonAmount: row.tCO2e,
-              })));
+              // getWeeklyCarbonEmissions util function will transform the data to get the diff rather than cumulative carbon emissions
+              setData(getWeeklyCarbonEmissions(results.data));
             },
           });
         })
