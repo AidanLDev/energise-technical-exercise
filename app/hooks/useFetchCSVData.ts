@@ -31,7 +31,7 @@ export const useFetchCSVData = () => {
             },
           });
         })
-        .catch((err) => console.error('Error parsing CSV: ', err))
+        .catch((err) => console.error(`Error parsing CSV: ${err}`))
         .finally(() => {
           setLoading(false);
           didRun.current = true;
